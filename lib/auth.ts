@@ -9,15 +9,15 @@ const DEMO_USERS = {
   admin: {
     id: 'demo-admin-001',
     email: 'admin@taipei-wellness.com',
-    name: '王診所長（示範）',
+    name: '王院長（示範）',
     role: 'CLINIC_ADMIN' as const,
     clinicId: 'demo-clinic-001',
     clinicName: '台北功能醫學診所（示範）',
   },
   doctor: {
     id: 'demo-doctor-001',
-    email: 'wang@taipei-wellness.com',
-    name: '王大明 醫師（示範）',
+    email: 'chen@taipei-wellness.com',
+    name: '陳明德 醫師（示範）',
     role: 'DOCTOR' as const,
     clinicId: 'demo-clinic-001',
     clinicName: '台北功能醫學診所（示範）',

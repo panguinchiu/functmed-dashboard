@@ -9,7 +9,7 @@ const DEMO_ROLES = [
     role: 'admin' as const,
     title: '診所管理員',
     subtitle: '管理醫師帳號、診所設定',
-    name: '王診所長（示範）',
+    name: '王院長（示範）',
     icon: (
       <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
