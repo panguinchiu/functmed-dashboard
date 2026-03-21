@@ -46,24 +46,36 @@ export function Sidebar({ role, clinicName }: SidebarProps) {
   const pathname = usePathname()
 
   return (
-    <aside className="w-64 bg-gray-900 text-white flex flex-col">
-      {/* Clinic branding */}
-      <div className="p-6 border-b border-gray-700">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
-          </div>
-          <div className="min-w-0">
-            <p className="text-xs text-gray-400 truncate">功能醫學</p>
-            <p className="text-sm font-semibold truncate">{clinicName}</p>
-          </div>
+    <aside className="w-64 bg-white border-r border-gray-100 flex flex-col shadow-sm">
+
+      {/* Logo */}
+      <Link
+        href="/dashboard"
+        className="flex items-center gap-3 px-6 py-5 border-b border-gray-100 group transition-colors hover:bg-amber-50/60"
+      >
+        {/* Compass star */}
+        <div className="shrink-0 transition-transform duration-200 group-hover:scale-105">
+          <svg width="38" height="38" viewBox="0 0 60 60" fill="none">
+            <path d="M30 4 Q31.5 4 32 5.5 L37 30 L23 30 L28 5.5 Q28.5 4 30 4Z" fill="#FDE68A" />
+            <path d="M30 56 Q28.5 56 28 54.5 L23 30 L37 30 L32 54.5 Q31.5 56 30 56Z" fill="#FDE68A" />
+            <path d="M5 30 Q5 28.5 6.5 28 L30 23 L30 37 L6.5 32 Q5 31.5 5 30Z" fill="#FCD34D" />
+            <path d="M57 30 Q57 31.5 55.5 32 L30 37 L30 23 L55.5 28 Q57 28.5 57 30Z" fill="#F59E0B" />
+          </svg>
         </div>
-      </div>
+
+        <div className="min-w-0">
+          <span
+            className="text-lg font-bold tracking-wide block"
+            style={{ fontFamily: 'var(--font-nunito)', color: '#E8672A' }}
+          >
+            Lumi Health
+          </span>
+          <p className="text-[11px] text-gray-400 truncate leading-tight">{clinicName}</p>
+        </div>
+      </Link>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 px-4 py-6 space-y-1">
         {navItems
           .filter(item => !item.adminOnly || role === 'CLINIC_ADMIN')
           .map(item => {
@@ -72,10 +84,8 @@ export function Sidebar({ role, clinicName }: SidebarProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 ${
+                  isActive ? 'nav-active' : 'nav-inactive'
                 }`}
               >
                 {item.icon}
@@ -86,9 +96,9 @@ export function Sidebar({ role, clinicName }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-gray-700">
-        <p className="text-xs text-gray-500 text-center">
-          功能醫學儀表板 v1.0
+      <div className="px-6 py-4 border-t border-gray-100">
+        <p className="text-xs text-gray-300 text-center" style={{ fontFamily: 'var(--font-nunito)' }}>
+          Lumi Health v1.0
         </p>
       </div>
     </aside>

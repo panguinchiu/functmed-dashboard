@@ -1,6 +1,8 @@
 import { requireSession } from '@/lib/auth-guard'
 import { prisma } from '@/lib/prisma'
 import { MOCK_PATIENTS, MOCK_REPORTS } from '@/lib/mock-data'
+import { getTodayAppointments } from '@/lib/mock-appointments'
+import { DoctorDashboard } from '@/components/dashboard/doctor-dashboard'
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
 
@@ -21,41 +23,42 @@ export default async function DashboardPage() {
   const session = await requireSession()
   const { clinicId, id: userId, role } = session.user
 
+  // ── Doctor role: show Physician Prep Dashboard ────────────────────────────
+  if (role === 'DOCTOR') {
+    const appointments = getTodayAppointments(userId)
+    return (
+      <DoctorDashboard
+        appointments={appointments}
+        userName={session.user.name ?? ''}
+        clinicName={session.user.clinicName ?? ''}
+      />
+    )
+  }
+
+  // ── Admin role: show stats overview ───────────────────────────────────────
   let totalPatients = 0
   let reportsThisMonth = 0
   let pendingAnalysis = 0
   let recentReports: typeof MOCK_REPORTS = []
 
   try {
-    const whereClause = role === 'DOCTOR' ? { clinicId, doctorId: userId } : { clinicId }
+    const whereClause = { clinicId }
     ;[totalPatients, reportsThisMonth, pendingAnalysis, recentReports] = await Promise.all([
       prisma.patient.count({ where: whereClause }),
       prisma.labReport.count({
-        where: {
-          clinicId,
-          ...(role === 'DOCTOR' ? { patient: { doctorId: userId } } : {}),
-          createdAt: { gte: new Date(new Date().setDate(1)) },
-        },
+        where: { clinicId, createdAt: { gte: new Date(new Date().setDate(1)) } },
       }),
       prisma.labReport.count({
-        where: {
-          clinicId,
-          status: { in: ['PARSED', 'PENDING'] },
-          ...(role === 'DOCTOR' ? { patient: { doctorId: userId } } : {}),
-        },
+        where: { clinicId, status: { in: ['PARSED', 'PENDING'] } },
       }),
       prisma.labReport.findMany({
-        where: {
-          clinicId,
-          ...(role === 'DOCTOR' ? { patient: { doctorId: userId } } : {}),
-        },
+        where: { clinicId },
         include: { patient: true },
         orderBy: { createdAt: 'desc' },
         take: 5,
       }) as any,
     ])
   } catch {
-    // DB unavailable — use mock data
     totalPatients = MOCK_PATIENTS.length
     reportsThisMonth = MOCK_REPORTS.length
     pendingAnalysis = MOCK_REPORTS.filter(r => r.status === 'PARSED').length
@@ -71,7 +74,6 @@ export default async function DashboardPage() {
         <p className="text-sm text-gray-500 mt-1">{session.user.clinicName}</p>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {[
           { label: '患者總數', value: totalPatients, icon: '👥' },
@@ -90,7 +92,6 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      {/* Recent reports */}
       <div className="bg-white rounded-xl border border-gray-200">
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="text-base font-semibold text-gray-900">最近上傳報告</h2>

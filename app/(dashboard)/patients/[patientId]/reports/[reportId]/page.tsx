@@ -150,6 +150,15 @@ export default async function ReportPage({
               reportId={report.id}
               initialStatus={report.status}
               initialAnalysis={report.aiAnalysis ?? null}
+              patient={{
+                name: `${patient.lastName}${patient.firstName}`,
+                age: calcAge(patient.dateOfBirth),
+                gender: patient.gender === 'FEMALE' ? '女' : patient.gender === 'MALE' ? '男' : '其他',
+                chartNumber: patient.chartNumber,
+                reportDate: formatDate(report.reportDate),
+                flaggedPanels: panels.filter((p: any) => p.flagged).length,
+                totalPanels: panels.length,
+              }}
             />
           </div>
         </div>
