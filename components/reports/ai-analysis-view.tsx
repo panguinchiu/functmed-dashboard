@@ -222,7 +222,7 @@ export function AiAnalysisView({ reportId, initialStatus, initialAnalysis, patie
           </div>
           <div>
             <h3 className="text-base font-bold text-gray-900">AI 功能醫學分析</h3>
-            <p className="text-xs text-gray-400">由 Claude Opus 4.6 生成</p>
+            <p className="text-xs text-gray-400">由 Claude Sonnet 4.6 生成</p>
           </div>
         </div>
         <button onClick={startAnalysis} disabled={!canAnalyze}
@@ -276,7 +276,7 @@ export function AiAnalysisView({ reportId, initialStatus, initialAnalysis, patie
         <div className="rounded-2xl border-2 border-dashed border-amber-200 bg-amber-50/30 p-14 text-center">
           <div className="text-5xl mb-4">🤖</div>
           <p className="text-gray-700 text-sm font-semibold">點擊「開始 AI 分析」以生成功能醫學建議</p>
-          <p className="text-gray-400 text-xs mt-2">使用 Claude Opus 4.6，分析約需 30–60 秒</p>
+          <p className="text-gray-400 text-xs mt-2">使用 Claude Sonnet 4.6，分析約需 20–40 秒</p>
         </div>
       )}
     </div>

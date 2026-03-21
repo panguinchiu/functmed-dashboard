@@ -1,3 +1,5 @@
+export const maxDuration = 300 // 5 min — Vercel Pro/Fluid Compute
+
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
@@ -132,9 +134,9 @@ export async function POST(
   return new Response(stream, {
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
-      'Transfer-Encoding': 'chunked',
       'X-Content-Type-Options': 'nosniff',
-      'Cache-Control': 'no-cache',
+      'Cache-Control': 'no-cache, no-transform',
+      'X-Accel-Buffering': 'no',
     },
   })
 }
