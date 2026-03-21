@@ -51,16 +51,24 @@ export async function POST(
   req: Request,
   { params }: { params: { reportId: string } }
 ) {
-  const session = await getServerSession(authOptions)
-  if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  // Allow demo reports without strict auth check (Vercel demo mode)
+  const isDemoReport = params.reportId.startsWith('demo-')
+
+  if (!isDemoReport) {
+    const session = await getServerSession(authOptions)
+    if (!session) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+  }
 
   let parsedData: ParsedReportData | null = null
   let isDemo = false
 
-  // Try real DB first
+  // Try real DB first (skip for demo reports)
   try {
+    if (isDemoReport) throw new Error('demo') // skip to mock
+
+    const session = await getServerSession(authOptions)
     const report = await prisma.labReport.findFirst({
-      where: { id: params.reportId, clinicId: session.user.clinicId },
+      where: { id: params.reportId, clinicId: session!.user.clinicId },
       include: { patient: true },
     })
 
