@@ -65,18 +65,20 @@ export default async function PatientPage({ params }: { params: { patientId: str
       </nav>
 
       {/* Patient info */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center">
-              <span className="text-blue-700 text-xl font-bold">{patient.lastName}</span>
+      <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-6">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-12 h-12 md:w-14 md:h-14 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
+              <span className="text-blue-700 text-lg md:text-xl font-bold">{patient.lastName}</span>
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">{patient.lastName}{patient.firstName}</h1>
+            <div className="min-w-0">
+              <h1 className="text-lg md:text-xl font-bold text-gray-900 truncate">{patient.lastName}{patient.firstName}</h1>
               <p className="text-sm text-gray-500 mt-0.5">病歷號：{patient.chartNumber}</p>
             </div>
           </div>
-          <UploadDialog patientId={patient.id} patientName={`${patient.lastName}${patient.firstName}`} />
+          <div className="shrink-0">
+            <UploadDialog patientId={patient.id} patientName={`${patient.lastName}${patient.firstName}`} />
+          </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-gray-100">

@@ -75,18 +75,18 @@ export default async function ReportPage({
       </nav>
 
       {/* Report header */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
-        <div className="flex items-start justify-between flex-wrap gap-4">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-xl font-bold text-gray-900">
+      <div className="bg-white rounded-xl border border-gray-200 p-4 md:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <h1 className="text-lg md:text-xl font-bold text-gray-900">
                 {patient.lastName}{patient.firstName} — 功能醫學報告
               </h1>
               <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${STATUS_COLORS[report.status]}`}>
                 {STATUS_LABELS[report.status]}
               </span>
             </div>
-            <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+            <div className="flex flex-wrap gap-2 md:gap-4 text-xs md:text-sm text-gray-600">
               <span>報告日期：{formatDate(report.reportDate)}</span>
               <span>年齡：{calcAge(patient.dateOfBirth)} 歲</span>
               <span>性別：{patient.gender === 'FEMALE' ? '女' : patient.gender === 'MALE' ? '男' : '其他'}</span>
@@ -95,20 +95,20 @@ export default async function ReportPage({
           </div>
           {pdfSasUrl && (
             <a href={pdfSasUrl} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors">
+              className="inline-flex items-center gap-2 px-3 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors shrink-0">
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              下載原始PDF
+              下載PDF
             </a>
           )}
         </div>
-        <div className="mt-3 text-xs text-gray-400">
+        <div className="mt-3 text-xs text-gray-400 truncate">
           {report.originalName} · {formatFileSize(report.fileSizeBytes)}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Lab panels */}
         <div className="space-y-3">
           <h2 className="text-base font-semibold text-gray-900">檢測面板</h2>

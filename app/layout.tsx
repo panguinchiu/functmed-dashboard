@@ -12,6 +12,7 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   title: 'Lumi Health',
   description: '診所功能醫學檢測報告分析系統',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

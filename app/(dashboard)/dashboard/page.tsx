@@ -74,19 +74,19 @@ export default async function DashboardPage() {
         <p className="text-sm text-gray-500 mt-1">{session.user.clinicName}</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-3 md:gap-4">
         {[
           { label: '患者總數', value: totalPatients, icon: '👥' },
           { label: '本月報告', value: reportsThisMonth, icon: '📋' },
           { label: '待AI分析', value: pendingAnalysis, icon: '🤖' },
         ].map(stat => (
-          <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-6">
-            <div className="flex items-center justify-between">
+          <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-3 md:p-6">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1">
               <div>
-                <p className="text-sm text-gray-500">{stat.label}</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                <p className="text-xs md:text-sm text-gray-500 leading-tight">{stat.label}</p>
+                <p className="text-2xl md:text-3xl font-bold text-gray-900 mt-0.5 md:mt-1">{stat.value}</p>
               </div>
-              <span className="text-3xl">{stat.icon}</span>
+              <span className="text-xl md:text-3xl hidden md:block">{stat.icon}</span>
             </div>
           </div>
         ))}

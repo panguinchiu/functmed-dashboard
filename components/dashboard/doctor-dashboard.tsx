@@ -387,7 +387,7 @@ export function DoctorDashboard({ appointments, userName }: DoctorDashboardProps
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Efficiency banner */}
-      <div className="glass-amber rounded-2xl px-7 py-5">
+      <div className="glass-amber rounded-2xl px-4 md:px-7 py-4 md:py-5">
         <p className="text-sm text-gray-700 leading-relaxed">
           <span className="font-bold text-gray-900">今日效率總覽　</span>
           共 <span className="font-bold text-amber-600 text-base">{appointments.length}</span> 位患者已排程，
@@ -397,17 +397,19 @@ export function DoctorDashboard({ appointments, userName }: DoctorDashboardProps
       </div>
 
       {/* Main layout */}
-      <div className="flex gap-6 items-start">
+      <div className="flex flex-col lg:flex-row gap-6 items-start">
         {/* Queue — flex 1 */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 w-full">
           <PatientQueue appointments={appointments} />
         </div>
 
         {/* Right sidebar */}
-        <div className="w-60 shrink-0 space-y-4">
+        <div className="w-full lg:w-60 lg:shrink-0 grid grid-cols-2 lg:grid-cols-1 gap-4">
           <MiniCalendar />
-          <Notifications />
           <QuickStats appointments={appointments} />
+          <div className="col-span-2 lg:col-span-1">
+            <Notifications />
+          </div>
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ function PatientSummaryCard({ patient }: { patient: PatientInfo }) {
         <span className="text-[10px] text-white/80">報告日期 {patient.reportDate}</span>
       </div>
 
-      <div className="px-5 py-4 flex items-start gap-4">
+      <div className="px-4 py-4 flex items-start gap-3 md:gap-4">
         {/* Avatar */}
         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shrink-0 shadow-sm shadow-amber-200">
           <span className="text-white text-lg font-bold">{initial}</span>
@@ -63,7 +63,7 @@ function PatientSummaryCard({ patient }: { patient: PatientInfo }) {
         </div>
 
         {/* Stats */}
-        <div className="flex gap-3 shrink-0">
+        <div className="flex gap-2 md:gap-3 shrink-0">
           <div className="text-center">
             <p className="text-2xl font-black text-red-500 leading-none">{patient.flaggedPanels}</p>
             <p className="text-[10px] text-gray-400 mt-0.5">異常面板</p>

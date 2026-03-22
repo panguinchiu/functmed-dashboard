@@ -25,8 +25,18 @@ export function Topbar({ user }: TopbarProps) {
   }
 
   return (
-    <header className="h-14 glass border-b border-white/60 sticky top-0 z-30 flex items-center justify-between px-6">
-      <div />
+    <header className="h-14 glass border-b border-white/60 sticky top-0 z-30 flex items-center justify-between px-4 md:px-6">
+      {/* Mobile logo */}
+      <div className="md:hidden flex items-center gap-2">
+        <svg width="28" height="28" viewBox="0 0 60 60" fill="none">
+          <path d="M30 4 Q31.5 4 32 5.5 L37 30 L23 30 L28 5.5 Q28.5 4 30 4Z" fill="#FDE68A" />
+          <path d="M30 56 Q28.5 56 28 54.5 L23 30 L37 30 L32 54.5 Q31.5 56 30 56Z" fill="#FDE68A" />
+          <path d="M5 30 Q5 28.5 6.5 28 L30 23 L30 37 L6.5 32 Q5 31.5 5 30Z" fill="#FCD34D" />
+          <path d="M57 30 Q57 31.5 55.5 32 L30 37 L30 23 L55.5 28 Q57 28.5 57 30Z" fill="#F59E0B" />
+        </svg>
+        <span className="text-base font-bold" style={{ fontFamily: 'var(--font-nunito)', color: '#E8672A' }}>Lumi Health</span>
+      </div>
+      <div className="hidden md:block" />
 
       <div className="flex items-center gap-3">
         <div className="text-right">
