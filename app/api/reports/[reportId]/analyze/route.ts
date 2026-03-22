@@ -129,10 +129,15 @@ export async function POST(
         }
 
         controller.close()
-      } catch (err) {
+      } catch (err: any) {
         console.error('AI analysis error:', err)
+        console.error('Error type:', err?.constructor?.name)
+        console.error('Error status:', err?.status)
+        console.error('Error message:', err?.message)
+        console.error('ANTHROPIC_API_KEY set:', !!process.env.ANTHROPIC_API_KEY)
         // Send error as text in the stream so client can display it
-        const errMsg = `\n\n**分析時發生錯誤：** ${String(err)}`
+        const errDetail = err?.message ?? String(err)
+        const errMsg = `\n\n**分析時發生錯誤：** ${errDetail} (type: ${err?.constructor?.name ?? 'unknown'})`
         controller.enqueue(new TextEncoder().encode(errMsg))
         controller.close()
       }
