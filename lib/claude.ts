@@ -130,9 +130,10 @@ ${reportText}
 
 請依照系統提示中的七個章節格式輸出分析結果。`
 
-  const stream = await anthropic.messages.stream({
+  const stream = await anthropic.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 4096,
+    stream: true,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: userMessage }],
   })
